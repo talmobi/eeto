@@ -2,7 +2,10 @@
   "name": "eeto",
   "version": "0.0.0",
   "description": "TODO",
-  "main": "eeto.js",
+  "main": "src/main.js",
+  "files": [
+    "src/main.js"
+  ],
   "scripts": {
     "test": "tape test/test.js"
   },
@@ -10,8 +13,8 @@
     "eeto"
   ],
   "author": "talmobi <talmo.christian@gmail.com>",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/talmobi/eeto"
