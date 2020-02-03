@@ -1,5 +1,8 @@
-module.exports = function create () {
+module.exports = function create ( opts ) {
   const ee = {}
+
+  ee.opts = opts || {}
+  ee.opts.limit = ee.opts.limit || 10
 
   ee._listeners = {}
 
@@ -8,8 +11,19 @@ module.exports = function create () {
     const l = ee._listeners[ name ] || []
     ee._listeners[ name ] = l
 
+    if ( typeof callback !== 'function' ) {
+      throw new Error( `eeto: callback must be a function (was ${ typeof callback })` )
+    }
+
+    // warn if listeners exceed limit
+    if ( l.length > ee.opts.limit ) {
+      console.log( `eeto max event listener limit warning: Possible event emitter leak detected. ${ l.length } '${ name }' listeners added. Set ee.opts.limit to increase limit.` )
+    }
+
     // already exist, throw error to notify user
-    if ( l.indexOf( callback ) >= 0 ) throw new Error( 'eeh: callback already registered ' + callback )
+    if ( l.indexOf( callback ) >= 0 ) {
+      throw new Error( 'eeto: callback already registered ' + callback )
+    }
     l.push( callback )
 
     return function off () {
