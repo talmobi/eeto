@@ -1,7 +1,7 @@
 {
   "name": "eeto",
   "version": "0.0.0",
-  "description": "TODO",
+  "description": "barebones events",
   "main": "src/main.js",
   "files": [
     "src/main.js"
@@ -10,7 +10,8 @@
     "test": "tape test/test.js"
   },
   "keywords": [
-    "eeto"
+    "eeto",
+    "events"
   ],
   "author": "talmobi <talmo.christian@gmail.com>",
   "license": "MIT",
