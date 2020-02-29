@@ -1,6 +1,6 @@
 {
   "name": "eeto",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "barebones events",
   "main": "src/main.js",
   "files": [
