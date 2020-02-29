@@ -35,6 +35,21 @@ test( 'off', function ( t ) {
   t.equal( buffer[ 1 ], undefined )
 } )
 
+test( 'off once', function ( t ) {
+  t.plan( 1 )
+  const ee = eeh()
+
+  const buffer = []
+  const off = ee.once( 'msg', function ( data ) {
+    buffer.push( data )
+  } )
+
+  off()
+  ee.emit( 'msg', 'world' )
+
+  t.equal( buffer[ 0 ], undefined )
+} )
+
 test( 'once', function ( t ) {
   t.plan( 2 )
   const ee = eeh()
