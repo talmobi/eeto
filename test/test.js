@@ -35,6 +35,48 @@ test( 'off', function ( t ) {
   t.equal( buffer[ 1 ], undefined )
 } )
 
+test( 'off called multiple timed', function ( t ) {
+  t.plan( 9 )
+  const ee = eeh()
+
+  const buffer = []
+
+  const offs = []
+
+  for ( let i = 0; i < 3; i++ ) {
+    const off = ee.on( 'msg', function ( data ) {
+      buffer.push( data )
+    } )
+    offs.push( off )
+  }
+
+  ee.emit( 'msg', 'hello' )
+  offs[ 0 ]()
+  ee.emit( 'msg', 'world' )
+  offs[ 0 ]()
+  ee.emit( 'msg', 'world again' )
+  offs[ 1 ]()
+  offs[ 1 ]()
+  offs[ 1 ]()
+  ee.emit( 'msg', 'pikachu' )
+  offs[ 2 ]()
+  ee.emit( 'msg', 'nomore' )
+
+  t.equal( buffer[ 0 ], 'hello' )
+  t.equal( buffer[ 1 ], 'hello' )
+  t.equal( buffer[ 2 ], 'hello' )
+
+  t.equal( buffer[ 3 ], 'world' )
+  t.equal( buffer[ 4 ], 'world' )
+
+  t.equal( buffer[ 5 ], 'world again' )
+  t.equal( buffer[ 6 ], 'world again' )
+
+  t.equal( buffer[ 7 ], 'pikachu' )
+
+  t.equal( buffer[ 8 ], undefined )
+} )
+
 test( 'off once', function ( t ) {
   t.plan( 1 )
   const ee = eeh()
