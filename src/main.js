@@ -39,6 +39,8 @@ module.exports = function create ( opts ) {
       off()
       callback( data )
     }
+
+    return off
   }
 
   ee.emit = function emit ( name, data ) {
