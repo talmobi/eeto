@@ -28,7 +28,8 @@ module.exports = function create ( opts ) {
 
     return function off () {
       const i = l.indexOf( callback )
-      return l.splice( i, 1 )
+      if ( i >= 0 ) return l.splice( i, 1 )
+      return undefined
     }
   }
 
