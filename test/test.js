@@ -108,6 +108,26 @@ test( 'once', function ( t ) {
   t.equal( buffer[ 1 ], undefined )
 } )
 
+test.only( 'once twice for same evt but different callbacks', function ( t ) {
+  t.plan( 3 )
+  const ee = eeh()
+
+  const buffer = []
+  ee.once( 'msg', function ( data ) {
+    buffer.push( data )
+  } )
+  ee.once( 'msg', function ( data ) {
+    buffer.push( data )
+  } )
+
+  ee.emit( 'msg', 'hello' )
+  ee.emit( 'msg', 'world' )
+
+  t.equal( buffer[ 0 ], 'hello' )
+  t.equal( buffer[ 1 ], 'hello' )
+  t.equal( buffer[ 2 ], undefined )
+} )
+
 test( 'duplicate callback error', function ( t ) {
   t.plan( 1 )
   const ee = eeh()
