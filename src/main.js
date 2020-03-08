@@ -46,8 +46,13 @@ module.exports = function create ( opts ) {
 
   ee.emit = function emit ( name, data ) {
     const l = ee._listeners[ name ] || []
-    for ( let i = 0; i < l.length; i++ ) {
-      const callback = l[ i ]
+
+    // make a copy in case any are removed during their callback
+    // triggers ( ex: happens for once callbacks )
+    const callbacks = l.slice()
+
+    for ( let i = 0; i < callbacks.length; i++ ) {
+      const callback = callbacks[ i ]
       callback( data )
     }
   }
